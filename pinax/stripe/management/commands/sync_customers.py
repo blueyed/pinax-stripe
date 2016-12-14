@@ -100,17 +100,26 @@ def _sync_invoices():
             )
             synced += 1
         except Customer.DoesNotExist:
-            print("Warning: stripe customer did not exist for invoice: {}".format(
+            message = "invoice skipped: stripe customer did not exist for invoice: {}".format(
                 obj.id
-            ))
+            )
             skipped += 1
         except Plan.DoesNotExist:
-            print("Warning: stripe plan did not exist for invoice: {}".format(
+            message = "invoice skipped: stripe plan did not exist for invoice: {}".format(
                 obj.id
-            ))
+            )
             skipped += 1
-        print("[{0}/{1} {2}%] Syncing invoice {3}".format(
-            count, total, perc, obj.id
+        except stripe.InvalidRequestError as se:
+            message = "invoice skipped: {}: {}".format(
+                obj.id, se.message
+            )
+            skipped += 1
+        else:
+            message = "synced invoice {}".format(
+                obj.id
+            )
+        print("[{0}/{1} {2}%] {3}".format(
+            count, total, perc, message
         ))
     return synced, skipped
 
@@ -122,12 +131,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Slurp dem records."""
-        customers_created, customers_synced = 1,2#(
-        #     _sync_customers()
-        # )
-        charges_synced, charges_skipped = 3,4#(
-        #     _sync_charges()
-        # )
+        customers_created, customers_synced = (
+            _sync_customers()
+        )
+        charges_synced, charges_skipped = (
+            _sync_charges()
+        )
         invoices_synced, invoices_skipped = (
             _sync_invoices()
         )
