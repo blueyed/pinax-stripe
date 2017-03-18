@@ -427,6 +427,11 @@ class OrderUpdatedWebhook(Webhook):
     description = "Occurs whenever an order is updated."
 
 
+class PaymentCreatedWebhook(Webhook):
+    name = "payment.created"
+    description = "A payment has been received by a managed Connect account via Transfer from the platform account."
+
+
 class PlanCreatedWebhook(Webhook):
     name = "plan.created"
     description = "Occurs whenever a plan is created."
