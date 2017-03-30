@@ -158,4 +158,3 @@ Invoices: {} synced ({} skipped due to missing customer)""".format(
             invoices_synced,
             invoices_skipped
         ))
-
