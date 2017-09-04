@@ -12,7 +12,7 @@ from .. import utils
 
 def calculate_refund_amount(charge, amount=None):
     """
-    Calculates the refund amount given a charge and optional amount.
+    Calculate refund amount given a charge and optional amount.
 
     Args:
         charge: a pinax.stripe.models.Charge object
@@ -43,7 +43,7 @@ def capture(charge, amount=None):
 
 def create(amount, customer, source=None, currency="usd", description=None, send_receipt=settings.PINAX_STRIPE_SEND_EMAIL_RECEIPTS, capture=True, email=None, stripe_account=None):
     """
-    Creates a charge for the given customer.
+    Create a charge for the given customer.
 
     Args:
         amount: should be a decimal.Decimal amount
