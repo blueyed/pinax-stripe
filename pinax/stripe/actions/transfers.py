@@ -21,7 +21,7 @@ def during(year, month):
 
 def sync_transfer(transfer, event=None):
     """
-    Syncronizes a transfer from the Stripe API
+    Syncronize a transfer from the Stripe API
 
     Args:
         transfer: data from Stripe API representing transfer
@@ -69,7 +69,7 @@ def sync_transfer(transfer, event=None):
 
 def update_status(transfer):
     """
-    Updates the status of a pinax.stripe.models.Transfer object from Stripe API
+    Update the status of a pinax.stripe.models.Transfer object from Stripe API
 
     Args:
         transfer: a pinax.stripe.models.Transfer object to update
