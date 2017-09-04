@@ -70,7 +70,7 @@ def create(amount, customer, source=None, currency="usd", description=None, send
         source=source,
         customer=customer,
         description=description,
-        capture=capture
+        capture=capture,
     )
     if stripe_account:
         kwargs['destination'] = {
