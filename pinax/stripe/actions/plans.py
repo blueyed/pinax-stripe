@@ -41,3 +41,4 @@ def sync_plan(plan, event=None):
         defaults=defaults
     )
     utils.update_with_defaults(obj, defaults, created)
+    return obj

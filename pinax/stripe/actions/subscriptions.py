@@ -5,7 +5,7 @@ from django.utils import timezone
 
 import stripe
 
-from .. import hooks, models, utils
+from .. import actions, hooks, models, utils
 from .coupons import sync_coupon_from_stripe_data
 
 
@@ -145,6 +145,7 @@ def sync_subscription_from_stripe_data(customer, subscription):
     Returns:
         the pinax.stripe.models.Subscription object created or updated
     """
+    plan = actions.plans.sync_plan(subscription["plan"])
     defaults = dict(
         customer=customer,
         application_fee_percent=subscription["application_fee_percent"],
@@ -153,7 +154,7 @@ def sync_subscription_from_stripe_data(customer, subscription):
         current_period_start=utils.convert_tstamp(subscription["current_period_start"]),
         current_period_end=utils.convert_tstamp(subscription["current_period_end"]),
         ended_at=utils.convert_tstamp(subscription["ended_at"]),
-        plan=models.Plan.objects.get(stripe_id=subscription["plan"]["id"]),
+        plan=plan,
         quantity=subscription["quantity"],
         start=utils.convert_tstamp(subscription["start"]),
         status=subscription["status"],
